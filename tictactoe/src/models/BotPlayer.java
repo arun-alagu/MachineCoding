@@ -14,7 +14,7 @@ public class BotPlayer extends Player{
 
     @Override
     public Cell nextMove(Board board) throws InterruptedException {
-        System.out.println();cd
+        System.out.println();
         Thread.sleep(2000);
         Cell cell = botPlayingStrategy.suggestMove(board);
         cell.setPlayer(this);
