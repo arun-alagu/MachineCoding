@@ -3,7 +3,9 @@ import controllers.PlayerController;
 import models.BotDifficultyLevel;
 import models.Game;
 import models.Player;
+import strategies.winning.AntiDiagnolWinningStrategy;
 import strategies.winning.ColumnWinningStrategy;
+import strategies.winning.DiagnolWinningStrategy;
 import strategies.winning.RowWinningStrategy;
 
 import java.util.ArrayList;
@@ -54,7 +56,9 @@ public class Main {
 
         }
 
-        Game game = GameController.initiateGame(dimension, playerList, List.of(new ColumnWinningStrategy(), new RowWinningStrategy()));
+        Game game = GameController.initiateGame(dimension, playerList,
+                List.of(new ColumnWinningStrategy(), new RowWinningStrategy(),
+                new DiagnolWinningStrategy(), new AntiDiagnolWinningStrategy()));
 
         System.out.println("Are you ready to start the game?");
 
