@@ -1,11 +1,13 @@
 package strategies.botPlaying;
 
+import lombok.Singular;
 import models.Board;
 import models.Cell;
 import models.CellState;
 import models.GameState;
 
-public class EasyBotPlayingStrategy implements BotPlayingStrategy{
+public enum EasyBotPlayingStrategy implements BotPlayingStrategy{
+    INSTANCE;
     @Override
     public Cell suggestMove(Board board) {
         for(int i = 0; i < board.getSize(); i++){
