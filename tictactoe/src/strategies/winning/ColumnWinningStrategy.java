@@ -2,7 +2,6 @@ package strategies.winning;
 
 import models.Board;
 import models.Cell;
-import models.CellState;
 import models.Player;
 
 import java.util.HashMap;
