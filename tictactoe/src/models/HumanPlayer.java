@@ -1,5 +1,6 @@
 package models;
 
+import exceptions.InvalidCellException;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -34,12 +35,12 @@ public class HumanPlayer extends Player{
         System.out.print("\nEnter the col: ");
         int col = sc.nextInt();
 
-        Cell cell = board.getBoard().get(row).get(col);
-
         if(row < 0 || row > board.getSize() ||
                 col < 0 || col > board.getSize() ||
-        !cell.getCellState().equals(CellState.EMPTY))
-            throw new Exception();
+                !board.getBoard().get(row).get(col).getCellState().equals(CellState.EMPTY))
+            throw new InvalidCellException();
+
+        Cell cell = board.getBoard().get(row).get(col);
 
         cell.setPlayer(this);
         cell.setCellState(CellState.OCCUPIED);

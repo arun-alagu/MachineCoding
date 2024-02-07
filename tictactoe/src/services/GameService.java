@@ -1,6 +1,9 @@
 package services;
 
+import exceptions.InvalidCellException;
 import models.*;
+import strategies.botPlaying.HardBotPlayingStrategy;
+import strategies.botPlaying.MediumBotPlayingStrategy;
 import strategies.winning.WinningStrategy;
 
 public class GameService {
@@ -23,13 +26,13 @@ public class GameService {
             System.out.printf("Now its %s's turn!", currentPlayer.getName());
 
             Cell currentCell = null;
-
-//            try {
+            try {
                 currentCell = currentPlayer.nextMove(game.getBoard());
-//            } catch (InvalidCellException e) {
-//                System.out.println("Please re-check the cell you entered!");
-//                continue;
-//            }
+            } catch (InvalidCellException e) {
+                System.out.println("Please re-check the cell you entered!");
+                System.out.println(e.getMessage()+"\n");
+                continue;
+            }
             game.getMoveList().add(new Move(currentCell, currentPlayer));
             game.board.print();
 
@@ -45,6 +48,7 @@ public class GameService {
             );
 
         }
+        System.out.print("\nIt's a Draw!!");
     }
 
         private boolean checkEmptySpace(){

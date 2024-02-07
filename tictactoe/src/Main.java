@@ -1,5 +1,7 @@
 import controllers.GameController;
 import controllers.PlayerController;
+import exceptions.InvalidCellException;
+import exceptions.InvalidSymbolException;
 import models.BotDifficultyLevel;
 import models.Game;
 import models.Player;
@@ -11,6 +13,7 @@ import strategies.winning.RowWinningStrategy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.random.RandomGenerator;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -33,8 +36,23 @@ public class Main {
             System.out.print("Enter player" +(i+1)+" name: ");
             String name = sc.next();
 
-            System.out.print("Symbol: ");
-            char symbol = sc.next().charAt(0);
+            char symbol = 'X';
+            boolean sym = true;
+            Symbol:
+            while(sym) {
+                try {
+                    System.out.print("Symbol: ");
+                    symbol = sc.next().charAt(0);
+                    for (Player player : playerList) {
+                        if (player.getSymbol() == symbol)
+                            throw new InvalidSymbolException();
+                    }
+                    sym = false;
+                } catch (InvalidSymbolException e) {
+                    System.out.println(e.getMessage());
+                    continue Symbol;
+                }
+            }
 
             System.out.print("Are you a bot (Y/N): ");
             char isBot = sc.next().toLowerCase().charAt(0);
@@ -62,7 +80,7 @@ public class Main {
 
         System.out.println("Are you ready to start the game?");
 
-        if (sc.next().equals("Y")) {
+        if (sc.next().toLowerCase().charAt(0) == 'y') {
             GameController gc = new GameController(game);
             gc.startGame();
         }
